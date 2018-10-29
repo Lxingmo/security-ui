@@ -4,7 +4,7 @@
 			<div class="mask_box">
 				<div class="top_title">
 					<div class="title_lefttext">底库人员配置</div>
-					<div class="title_righttext" v-if=" init_data.allnum > 400000 ">结果{{init_data.allnum + 250000}}个</div>
+					<div class="title_righttext" v-if=" init_data.allnum > 400000 && $store.state.is_show_add_data">结果{{init_data.allnum + 250000}}个</div>
 					<div class="title_righttext" v-else>结果{{init_data.allnum}}个</div>
 				</div>
 				<div class="input_box" @keyup.enter="keyup_to_search">
@@ -46,7 +46,8 @@
 						</table>
 					</div>
 					<div class="table_thbox2" ref="table_f">
-						<table id="tabledata" ref="table_c">
+                        <my-loading v-if="is_tabledata_loading"></my-loading>
+						<table id="tabledata" ref="table_c" v-else>
 							<tr class="tr" v-for="item in tabledata">
 								<td class="td td4">
 									<input class="checkbox_box" type="checkbox" :checked="item.ischecked" v-model="item.ischecked" @click="click_to_checkedone(item.uuid)" />
@@ -110,7 +111,7 @@
                             :page-sizes="[10, 20, 40, 50]"
                             :page-size="init_data.pageSize"
                             layout="total, sizes, prev, pager, next, jumper"
-                            :total="init_data.allnum+250000" v-if="init_data.allnum > 400000">
+                            :total="init_data.allnum+250000" v-if="init_data.allnum > 400000 && $store.state.is_show_add_data">
 						</el-pagination>
                         <el-pagination
                             @size-change="handleSizeChange"
@@ -347,6 +348,9 @@
 				tip_top: 0,
 				tip_left: 0,
 				shape_text: [],
+
+                // 列表数据是否加载中
+                is_tabledata_loading: false,
 			} //返回数据最外围
 		},
 		methods: {
@@ -612,6 +616,7 @@
 			get_init_data2:function(){
 				// 请求人员数据
                	var params = new URLSearchParams()
+                this.is_tabledata_loading = true
                 this.$ajax.post("/person/list",params).then((res) => {
                     if( res.data.status === 0){
                     	this.tabledata = res.data.data.list
@@ -624,7 +629,9 @@
                     }else{
                         this.mes_handling(res.data.status,res.data.msg)
                     }
+                    this.is_tabledata_loading = false
                 }).catch((error) => {
+                    this.is_tabledata_loading = false
                 	console.log(error)
                 	this.error_info('网络连接出错')
                     return ;
@@ -659,7 +666,7 @@
                 		}
                 	}
                 }
-                if( this.init_data.allnum > 400000 ){
+                if( this.init_data.allnum > 400000 && this.$store.state.is_show_add_data ){
                     if( this.init_data.pageNum*this.init_data.pageSize > this.init_data.allnum){
                         let mypageNum = this.init_data.pageNum - 250000/this.init_data.pageSize
                         params.append("pageNum",mypageNum)
@@ -672,6 +679,7 @@
 
                 params.append("pageSize",this.init_data.pageSize)
                 // 请求人员数据
+                this.is_tabledata_loading = true
                 this.$ajax.post("/person/list",params).then((res) => {
                     if( res.data.status === 0){
                     	this.init_data.allnum = res.data.data.total
@@ -683,7 +691,9 @@
                     }else{
                         this.mes_handling(res.data.status,res.data.msg)
                     }
+                    this.is_tabledata_loading = false
                 }).catch((error) => {
+                    this.is_tabledata_loading = false
                 	console.log(error)
                 	this.error_info('网络连接出错')
                     return ;

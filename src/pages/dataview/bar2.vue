@@ -5,19 +5,7 @@
 		</div>
 		<div class="main" v-if="maleNum.length || femaleNum.length || ageGroupList.length"></div>
         <div class="main_ch" v-else-if="$store.state.dataview2_flag">
-        	<div class="main_loading">
-				<div class="main_table">
-					<div class="main_cell">
-						<div class="spinner">
-							<div class="rect1"></div>
-							<div class="rect2"></div>
-							<div class="rect3"></div>
-							<div class="rect4"></div>
-							<div class="rect5"></div>
-						</div>
-					</div>
-				</div>
-			</div>
+        	<my-loading></my-loading>
         </div>
         <div class="main_ch" v-else>
             <div class="main_text">
@@ -34,13 +22,18 @@
 
 <script>
 	import echarts from 'echarts'
+    import MyLoading from '../../components/myloading'
 
-	export default{
+
+    export default{
 		props: {
 			maleNum: Array,
 			femaleNum: Array,
 			ageGroupList: Array,
 		},
+        components:{
+            MyLoading
+        },
 		data(){
 			return {
 				myChart: {},
@@ -248,28 +241,29 @@
 		},
 		watch:{
 			'maleNum':function(newval,old){
-				// let ageGroupList = []
-				// let maleNum = []
-				// let femaleNum = []
-				// for( let i = 0; i < this.maleNum.length; i++ ){
-				// 	if( this.maleNum[i] != 0 || this.femaleNum[i] != 0 ){
-				// 		ageGroupList.push( this.ageGroupList[i] )
-				// 		maleNum.push( this.maleNum[i] )
-				// 		femaleNum.push( this.femaleNum[i] )
-				// 	}
-				// }
-				let mydata = {
-					yAxis: ["儿童","青年","中年","老年"],
-					maleNum: this.maleNum,
-					femaleNum: this.femaleNum,
-				}
-				// this.line_echart_init( mydata )
-				// this.my_init()
+
+                let mydata = {
+                    yAxis: ["儿童","青年","中年","老年"],
+                    // maleNum: [320, 302, 341, 374],
+                    maleNum: [0, 0, 0, 10],
+                    femaleNum: [-120, -132, -101, -134],
+                }
 
                 this.$nextTick(function(){
                     this.line_echart_init( mydata )
                     this.my_init()
                 });
+
+				// let mydata = {
+				// 	yAxis: ["儿童","青年","中年","老年"],
+				// 	maleNum: this.maleNum,
+				// 	femaleNum: this.femaleNum,
+				// }
+                //
+                // this.$nextTick(function(){
+                //     this.line_echart_init( mydata )
+                //     this.my_init()
+                // });
 			}
 		}
 	}

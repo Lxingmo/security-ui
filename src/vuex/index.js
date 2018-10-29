@@ -56,6 +56,9 @@ const store = new Vuex.Store({
 
         // 注销标志
         logout_flag: false,
+
+        // 模拟数据
+        is_show_add_data: false,
     },
     // 修改全局变量必须通过mutations中的方法
     // mutations只能采用同步方法

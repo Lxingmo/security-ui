@@ -30,7 +30,8 @@
 						</table>
 					</div>
 					<div class="table_thbox2" ref="table_f">
-						<table id="tabledata" ref="table_c">
+                        <my-loading v-if="is_tabledata_loading"></my-loading>
+						<table id="tabledata" ref="table_c" v-else>
 							<tr class="tr" v-for="item in tabledata">
 								<td class="td td4">
 									<input class="checkbox_box" type="checkbox" :checked="item.ischecked" v-model="item.ischecked" @click="click_to_checkedone(item.uuid)" />
@@ -160,6 +161,7 @@
 </template>
 
 <script>
+
 	//js
 	export default {
 		data() {
@@ -205,6 +207,9 @@
 				tip_top: 0,
 				tip_left: 0,
 				shape_text: [],
+
+                // 列表数据是否加载中
+                is_tabledata_loading: false,
 			} //返回数据最外围
 		},
 		methods: {
@@ -459,6 +464,7 @@
 			get_init_data:function(){
 				// 请求设备组列表
 				var params = new URLSearchParams()
+                this.is_tabledata_loading = true
 				this.$ajax.post("/groupCamera/list",params).then((res) => {
                     if( res.data.status === 0){
                 		this.init_data.allnum = res.data.data.total
@@ -477,7 +483,9 @@
                     }else{
                         this.mes_handling(res.data.status,res.data.msg)
                     }
+                    this.is_tabledata_loading = false
                 }).catch((error) => {
+                    this.is_tabledata_loading = false
                 	console.log(error)
                 	this.error_info('网络连接出错')
                     return ;
@@ -492,6 +500,7 @@
 
                 params.append("pageNum",this.init_data.pageNum)
                 params.append("pageSize",this.init_data.pageSize)
+                this.is_tabledata_loading = true
                 this.$ajax.post("/groupCamera/list",params).then((res) => {
                     if( res.data.status === 0){
                 		this.init_data.allnum = res.data.data.total
@@ -509,7 +518,9 @@
                     }else{
                         this.mes_handling(res.data.status,res.data.msg)
                     }
+                    this.is_tabledata_loading = false
                 }).catch((error) => {
+                    this.is_tabledata_loading = false
                 	console.log(error)
                 	this.error_info('网络连接出错')
                     return ;

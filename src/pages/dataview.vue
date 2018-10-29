@@ -3,10 +3,67 @@
     <div class="dataview_main_box">
         <div class="top_information">
             <div class="index_topbox">
-                <div class="index_time" >{{show_date}}</div>
-                <div class="index_snap index_snap1">抓拍    <span>{{ snapCount }}</span>   次</div>
-                <div class="index_snap">报警    <span>{{ warningCount }}</span>   次</div>
-                <div class="index_personnel" v-if="person_total > 400000">底库人员总量    <span>{{ person_total + 250000 }}</span>   张</div>
+                <div class="index_time" >
+                    <div style="float: left">{{show_date}}</div>
+                    <div style="float: left;width: 40px;height: 40px;margin: auto">
+                        <number-grow
+                            :value="Mdata"
+                            :size="mysize"
+                            place="2"
+                            numcolor="#B5BBC2"
+                        ></number-grow>
+                    </div><div style="float: left">分</div>
+                    <div style="float: left;width: 40px;height: 40px;margin: auto">
+                        <number-grow
+                            :value="Sdata"
+                            :size="mysize"
+                            place="2"
+                            numcolor="#B5BBC2"
+                        ></number-grow>
+                    </div><div style="float: left">秒</div>
+                </div>
+                <div class="index_snap index_snap1">
+                    <div style="display: inline-block">
+                        <div style="float: left;margin-top: 17px;">抓拍</div>
+                        <div style="float: left;max-width: 60%;height: 100%;margin: 0 10px">
+                            <number-grow
+                                :value="snapCount"
+                                :size="50"
+                                place="10"
+                                numcolor="#03BD71"
+                            ></number-grow>
+                        </div>
+                        <div style="float: left;margin-top: 17px;margin-left:12px">次</div>
+                    </div>
+                    <!--抓拍-->
+                    <!--<span>-->
+                        <!--<div style="height: 100%; display:inline-block ;margin-top: 10px;">-->
+                            <!--<number-grow-->
+                                <!--:value="snapCount"-->
+                                <!--:size="50"-->
+                                <!--place="8"-->
+                                <!--numcolor="#03BD71"-->
+                            <!--&gt;</number-grow>-->
+                        <!--</div>-->
+                    <!--</span>-->
+                    <!--次-->
+                </div>
+                <!--<div class="index_snap">报警    <span>{{ warningCount }}</span>   次</div>-->
+                <div class="index_snap">
+                    <div style="display: inline-block">
+                        <div style="float: left;margin-top: 17px;">报警</div>
+                        <div style="float: left;max-width: 60%;height: 100%;margin: 0 10px">
+                            <number-grow
+                                :value="warningCount"
+                                :size="50"
+                                place="6"
+                                numcolor="#03BD71"
+                            ></number-grow>
+                        </div>
+                        <div style="float: left;margin-top: 17px;margin-left:12px">次</div>
+                    </div>
+                </div>
+                <div class="index_personnel" v-if="person_total > 400000 && $store.state.is_show_add_data">底库人员总量    <span>{{ person_total + 250000 }}</span>   张</div>
                 <div class="index_personnel" v-else>底库人员总量    <span>{{ person_total }}</span>   张</div>
             </div>
         </div>
@@ -150,9 +207,9 @@
                     isactive2:true,
                     isactive3:false,
                     active_num: 1,
-                    index_span1:'9513651',
-                    index_span2:'5',
-                    index_span3:'1000000',
+                    index_span1:'0',
+                    index_span2:'0',
+                    index_span3:'0',
                     is_show_info: false,
                     is_show_date: false,
                     is_show_choose: true,
@@ -223,6 +280,11 @@
 
                     // 定时器
                     timer_num: null,
+
+                    // 时间显示
+                    Sdata: 0,
+                    Mdata: 0,
+                    mysize: 33,
                 }
             },
             mounted() {
@@ -231,9 +293,12 @@
                 this.get_mmanage_people_num()
                 setInterval(() => {
                     this.show_date = this.real_time()
+                    // this.warningCount = this.rnd(0,999999)
+                    // this.snapCount  = this.snapCount*10 + this.rnd(0,10)
                 }, 1000);
                 this.timer_num = setInterval(() => {
                     this.get_snapCounting()
+                    // this.snapCount = this.rnd(0,9999999999)
                 }, 5000);
 
                 this.get_init_data()
@@ -242,6 +307,11 @@
                 this.change_mynav_active()
             },
             methods: {
+                // 取得区间内随机整数
+                rnd:function(n, m){
+                    let random = Math.floor(Math.random()*(m-n)+n)
+                    return random
+                },
                 // test:function(){
                 //     // console.log("hah")
                 //     this.day_time = ['08-11','08-12','08-13','08-14','08-15','08-16','08-17']
@@ -275,8 +345,12 @@
                         Sdata = "0" + date.getSeconds()
                     }else{
                         Sdata = date.getSeconds()
+                        // this.Sdata = parseInt( date.getSeconds() )
                     }
-                    return date.getFullYear() + '年' + month_data + '月' + day_data + '日    ' + Hdata + '点' + Mdata + '分' + Sdata + '秒';
+                    this.Mdata = date.getMinutes()
+                    this.Sdata = date.getSeconds()
+                    // return date.getFullYear() + '年' + month_data + '月' + day_data + '日    ' + Hdata + '时' + Mdata + '分' + Sdata + '秒';
+                    return date.getFullYear() + '年' + month_data + '月' + day_data + '日    ' + Hdata + '时'  ;
                 },
 
                 // 弹窗加切换栏
@@ -555,7 +629,7 @@
             },
             watch:{
                 $route(to,from){
-                    this.transitionName = 'slide-left';
+                    this.transitionName = 'slide-left-children';
                     this.change_mynav_active()
                 },
                 'choose_groupName':function(newVal,old){
@@ -717,37 +791,37 @@
         position: absolute;
     }
 
-    /*界面切换样式*/
-    .slide-right-enter-active,
-    .slide-right-leave-active,
-    .slide-left-enter-active{
-        will-change: transform;
-        transition: all 1000ms ease;
-        /*position: absolute;*/
+    /*!*界面切换样式*!*/
+    /*.slide-right-enter-active,*/
+    /*.slide-right-leave-active,*/
+    /*.slide-left-enter-active{*/
+        /*will-change: transform;*/
+        /*transition: all 1000ms ease;*/
+        /*!*position: absolute;*!*/
+        /*!*float: left;*!*/
+    /*}*/
+    /*.slide-left-leave-active {*/
+        /*will-change: transform;*/
+        /*transition: all 1000ms ease;*/
+        /*!*position: absolute;*!*/
         /*float: left;*/
-    }
-    .slide-left-leave-active {
-        will-change: transform;
-        transition: all 1000ms ease;
-        /*position: absolute;*/
-        float: left;
-    }
-    .slide-right-enter {
-        opacity: 0;
-        transform: translate3d(-100%, 0, 0);
-    }
-    .slide-right-leave-active {
-        opacity: 0;
-        transform: translate3d(100%, 0, 0);
-    }
-    .slide-left-enter {
-        opacity: 0;
-        /*-webkit-transform: translate3d(100%,0, 0);*/
-        transform: translate3d(100%, 0, 0);
-    }
-    .slide-left-leave-active {
-        opacity: 0;
-        /*-webkit-transform: translate3d(-100%,0, 0);*/
-        transform: translate3d(-100%, 0, 0);
-    }
+    /*}*/
+    /*.slide-right-enter {*/
+        /*opacity: 0;*/
+        /*transform: translate3d(-100%, 0, 0);*/
+    /*}*/
+    /*.slide-right-leave-active {*/
+        /*opacity: 0;*/
+        /*transform: translate3d(100%, 0, 0);*/
+    /*}*/
+    /*.slide-left-enter {*/
+        /*opacity: 0;*/
+        /*!*-webkit-transform: translate3d(100%,0, 0);*!*/
+        /*transform: translate3d(100%, 0, 0);*/
+    /*}*/
+    /*.slide-left-leave-active {*/
+        /*opacity: 0;*/
+        /*!*-webkit-transform: translate3d(-100%,0, 0);*!*/
+        /*transform: translate3d(-100%, 0, 0);*/
+    /*}*/
 </style>

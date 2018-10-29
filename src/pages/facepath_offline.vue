@@ -92,7 +92,6 @@
     import LeftNav from "./left_nav2"
     import Vue from 'vue'
     import {AntPath, antPath} from "leaflet-ant-path"
-    // import * as L from "../../static/offlineMap/leaflet/leaflet-src";
 
     export default {
         components: {
@@ -258,14 +257,7 @@
             add_markers_all: function (add_data) {
                 for (let i = 0; i < add_data.length; i++) {
                     let camerastatus = '', eye_div = ''
-                    // if( add_data[i].cameraStatus ){
-                    //     camerastatus = '<div class="state state1">正常</div>'
-                    //     eye_div = '<div class="face_icon1"><img src="'+this.icon_eye+'" onclick="skip_to_realtimem(\''
-                    //                + add_data[i].sdkId +'\',\'' + add_data[i].name + '\' )" title="跳转实时监控"/></div>'
-                    // }else{
-                    //     camerastatus = '<div class="state state2">闲置</div>'
-                    //     eye_div = '<div class="face_icon1"><img src="'+this.icon_eye+'"  style="cursor: not-allowed;" title="闲置状态不可跳转"/></div>'
-                    // }
+
                     if( add_data[i].cameraStatus ){
                         camerastatus = '<div class="state state1">正常</div>'
                         eye_div = '<div class="face_icon1 face_icon1_img face_icon_fpath" onclick="skip_to_realtimem(\''
@@ -399,14 +391,7 @@
                 // console.log(contects.length)
                 for( let i = 0; i < contects.length; i++ ){
                     let camerastatus = '',eye_div = ''
-                    // if( this.tabledata[this.markers_list[i]].cameraStatus ){
-                    //     camerastatus = '<div class="state state1">正常</div>'
-                    //     eye_div = '<div class="face_icon1" ><img src="'+this.icon_eye+'" onclick="skip_to_realtimem(\''
-                    //             + this.tabledata[this.markers_list[i]].cameraSdkId +'\',\'' + this.tabledata[this.markers_list[i]].cameraName + '\')" title="跳转实时监控"/></div>'
-                    // }else{
-                    //     camerastatus = '<div class="state state2">闲置</div>'
-                    //     eye_div = '<div class="face_icon1"><img src="'+this.icon_eye+'" style="cursor: not-allowed;" title="闲置状态不可跳转"/></div>'
-                    // }
+
                     if( this.tabledata[this.markers_list[i]].cameraStatus ){
                         camerastatus = '<div class="state state1">正常</div>'
                         eye_div = '<div class="face_icon1 face_icon1_img face_icon_fpath" " onclick="skip_to_realtimem(\''

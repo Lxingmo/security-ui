@@ -6,19 +6,7 @@
         <!--<div class="main" ></div>-->
 		<div class="main" v-if="ageGroupList.length || genderData.length || AgeGengerData.length"></div>
         <div class="main_ch" v-else-if="$store.state.dataview2_flag">
-        	<div class="main_loading">
-				<div class="main_table">
-					<div class="main_cell">
-						<div class="spinner">
-							<div class="rect1"></div>
-							<div class="rect2"></div>
-							<div class="rect3"></div>
-							<div class="rect4"></div>
-							<div class="rect5"></div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <my-loading></my-loading>
         </div>
         <div class="main_ch" v-else>
             <div class="main_text">
@@ -35,13 +23,17 @@
 
 <script>
 	import echarts from 'echarts'
+    import MyLoading from '../../components/myloading'
 
-	export default{
+    export default{
 		props:{
 			ageGroupList: Array,
 			genderData: Array,
 			AgeGengerData: Array,
 		},
+        components:{
+            MyLoading
+        },
 		data(){
 			return {
 				legendArr: [],

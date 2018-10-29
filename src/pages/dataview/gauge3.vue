@@ -1,7 +1,6 @@
 <template>
 	<div class="gauge3">
-		<div class="line_head">
-		</div>
+		<div class="line_head"></div>
 		<div class="main"></div>
 	</div>
 </template>

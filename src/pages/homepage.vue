@@ -2,7 +2,7 @@
 	<!--html,不用head和body-->
 	<div class="main_box">
 		<my-nav></my-nav>
-		
+
 		<transition :name="transitionName">
 			<keep-alive>
 				<router-view v-if="$route.meta.keep_alive"></router-view>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-	import myNav from "./mynav" 
+	import myNav from "./mynav"
 	//js
 	export default {
 		components : {
@@ -27,6 +27,11 @@
 				transitionName: '',
 			}
 		},
+        methods:{
+		  get_key:function(){
+		    return this.$route.meta.key
+          },
+        },
 		watch:{
 			$route(to,from){
                 this.transitionName = 'slide-left';
@@ -57,41 +62,34 @@
 	}
 
 	/*界面切换样式*/
-	.slide-right-enter-active,
-	.slide-right-leave-active,
-	.slide-left-enter-active{
-		will-change: transform;
-		transition: all 1400ms ease;
-		position: absolute;
-	}
-	.slide-left-leave-active {
-		will-change: transform;
-		transition: all 700ms ease;
-		position: absolute;
-	}
-	.slide-right-enter {
-		opacity: 0;
-		transform: translate3d(-100%, 0, 0);
-	}
-	.slide-right-leave-active {
-		opacity: 0;
-		transform: translate3d(100%, 0, 0);
-	}
-	.slide-left-enter {
-		opacity: 0;
-		/*-webkit-transform: translate3d(100%,0, 0);*/
-		transform: translate3d(100%, 0, 0);
-	}
-	.slide-left-leave-active {
-		opacity: 0;
-		/*-webkit-transform: translate3d(-100%,0, 0);*/
-		transform: translate3d(-100%, 0, 0);
-	}
-    .none-enter,
-    .none-enter-active,
-    .none-leave,
-    .none-leave-active{
-        transition: all 0ms ease;
-        position: absolute;
-    }
+	/*.slide-right-enter-active,*/
+	/*.slide-right-leave-active,*/
+	/*.slide-left-enter-active{*/
+		/*will-change: transform;*/
+		/*transition: all 1400ms ease;*/
+		/*position: absolute;*/
+	/*}*/
+	/*.slide-left-leave-active {*/
+		/*will-change: transform;*/
+		/*transition: all 700ms ease;*/
+		/*position: absolute;*/
+	/*}*/
+	/*.slide-right-enter {*/
+		/*opacity: 0;*/
+		/*transform: translate3d(-100%, 0, 0);*/
+	/*}*/
+	/*.slide-right-leave-active {*/
+		/*opacity: 0;*/
+		/*transform: translate3d(100%, 0, 0);*/
+	/*}*/
+	/*.slide-left-enter {*/
+		/*opacity: 0;*/
+		/*!*-webkit-transform: translate3d(100%,0, 0);*!*/
+		/*transform: translate3d(100%, 0, 0);*/
+	/*}*/
+	/*.slide-left-leave-active {*/
+		/*opacity: 0;*/
+		/*!*-webkit-transform: translate3d(-100%,0, 0);*!*/
+		/*transform: translate3d(-100%, 0, 0);*/
+	/*}*/
 </style>

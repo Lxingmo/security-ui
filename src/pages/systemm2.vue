@@ -30,7 +30,8 @@
 					</table>
 				</div>
 				<div class="table_thbox2 systable_thbox2" ref="table_f">
-					<table id="tabledata" ref="table_c">
+                    <my-loading v-if="is_tabledata_loading"></my-loading>
+					<table id="tabledata" ref="table_c" v-else>
 						<tr class="tr" v-for="item in tabledata">
 							<td class="td td20">
 								<div class="table_text">
@@ -156,6 +157,9 @@
 
 				// 滚动条
 				tabledata_style: 'width: 100%',
+
+                // 列表数据是否加载中
+                is_tabledata_loading: false,
 			}//返回数据最外围
 		},
 		components:{
@@ -248,6 +252,7 @@
 			get_init_data:function( search_data = {} ){
     			search_data.pageNum = this.init_data.pageNum
     			search_data.pageSize = this.init_data.pageSize
+                this.is_tabledata_loading = true
 				this.$ajax.get("/log/operationRecordList",{params: search_data }).then((res) => {
                     if( res.data.status === 0){
                     	this.init_data.allnum = res.data.data.total
@@ -265,7 +270,9 @@
                     }else{
                         this.mes_handling(res.data.status,res.data.msg)
                     }
+                    this.is_tabledata_loading = false
                 }).catch((error) => {
+                    this.is_tabledata_loading = false
                 	console.log(error)
                 	this.error_info('网络连接出错')
                     return ;

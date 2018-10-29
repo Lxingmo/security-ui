@@ -1,11 +1,11 @@
 <template>
   <div id="app" class="fillcontain">
     <!-- <img src="./assets/logo.png"> -->
-    <transition :name="transitionName">
+    <!--<transition :name="transitionName">-->
       <!-- <keep-alive> -->
         <router-view/>
       <!-- </keep-alive> -->
-    </transition>
+    <!--</transition>-->
   </div>
 </template>
 
@@ -38,6 +38,7 @@ export default {
   .fillcontain{
       height: 100%;
       width: 100%;
+      /*position: relative;*/
       /*background-color: blue; */
   }
   html,body{
@@ -48,34 +49,23 @@ export default {
     min-height: 974px;
   }
 
-  /*界面切换样式*/
-/*  .slide-right-enter-active,
-  .slide-right-leave-active,
-  .slide-left-enter-active{
-    will-change: transform;
-    transition: all 2000ms ease;
-    position: absolute;
-  }
-  .slide-left-leave-active {
-    will-change: transform;
-    transition: all 1000ms ease;
-    position: absolute;
-  }
-  .slide-right-enter {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-  .slide-right-leave-active {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-  .slide-left-enter {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-  .slide-left-leave-active {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-*/
+  /*!*界面切换样式*!*/
+  /*.slide-left-enter-active{*/
+    /*will-change: transform;*/
+    /*transition: all 1s ease;*/
+    /*position: absolute;*/
+  /*}*/
+  /*.slide-left-leave-active {*/
+    /*will-change: transform;*/
+    /*transition: all 1s ease;*/
+    /*position: absolute;*/
+  /*}*/
+  /*.slide-left-enter {*/
+    /*opacity: 0;*/
+    /*transform: translate3d(100%, 0, 0);*/
+  /*}*/
+  /*.slide-left-leave-active {*/
+    /*opacity: 0;*/
+    /*transform: translate3d(-100%, 0, 0);*/
+  /*}*/
 </style>

@@ -7,10 +7,12 @@ import './element'
 import './axios'
 import store from './vuex'
 import md5 from 'js-md5'
+import G_component from './Global_components'
 // import echarts from 'echarts'
 
 Vue.config.productionTip = false
 Vue.prototype.$md5 = md5
+Vue.use(G_component)
 
 /* eslint-disable no-new */
 new Vue({
@@ -29,7 +31,20 @@ new Vue({
 router.beforeEach((to, from, next) => {
 	// console.log(to)
 	if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否跳转到需要登陆权限的页面
+	    // if( to.path.indexOf("system") != -1 ){
+        //     store.state.logout_flag = true
+        //     next({
+        //         path: '/login',  //没登录则跳转到登录界面
+        //     })
+        //     Vue.prototype.$message({
+        //         type: 'warning',
+        //         message: "请先登录",
+        //         showClose: true,
+        //         center: true
+        //     })
+        // }
 		if (!store.state.user.uname) {// 判断是否登录
+            store.state.logout_flag = true
 			next({
 				path: '/login',  //没登录则跳转到登录界面
 			})

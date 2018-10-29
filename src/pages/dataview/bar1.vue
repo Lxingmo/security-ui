@@ -7,19 +7,7 @@
 		<!--<div class="main"></div>-->
         <div class="main" v-if="showData.length || dayTime.length || fname.length"></div>
         <div class="main_ch" v-else-if="$store.state.dataview1_flag">
-            <div class="main_loading">
-                <div class="main_table">
-                    <div class="main_cell">
-                        <div class="spinner">
-                            <div class="rect1"></div>
-                            <div class="rect2"></div>
-                            <div class="rect3"></div>
-                            <div class="rect4"></div>
-                            <div class="rect5"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <my-loading></my-loading>
         </div>
         <div class="main_ch" v-else>
             <div class="main_text">
@@ -36,6 +24,7 @@
 
 <script>
 	import echarts from 'echarts'
+    import MyLoading from '../../components/myloading'
 
 	export default{
 		props: {
@@ -45,6 +34,9 @@
 			fname: Array,
 			flag: Boolean,
 		},
+        components:{
+            MyLoading
+        },
 		data(){
 			return {
 				legendArr: [],

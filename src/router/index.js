@@ -53,6 +53,7 @@ const  routes=[
 		meta:{
 			title: '登录',
 			index: 1,
+            key: 1,
 			requireAuth: false,
 			keep_alive: false, // 是否缓存
 		},
@@ -64,6 +65,7 @@ const  routes=[
 		meta:{
 			title: 'homepage',
 			index: 2,
+            key: 2,
 			requireAuth: true,
 			keep_alive: false, // 是否缓存
 		},
@@ -75,6 +77,7 @@ const  routes=[
 			meta:{
 				title: '数据可视化',
 				index: 3,
+                key: 3,
 				requireAuth: true,
 				keep_alive: false,
 			},
@@ -86,7 +89,8 @@ const  routes=[
 					component: dataview1,
 					meta:{
 						title: '数据可视化',
-						index: 2,
+						index: 3,
+                        key: 4,
 						requireAuth: true,
 						keep_alive: false,
 					},
@@ -98,6 +102,7 @@ const  routes=[
 					meta:{
 						title: '数据可视化',
 						index: 3,
+                        key: 5,
 						requireAuth: true,
 						keep_alive: false,
 					},
@@ -108,7 +113,8 @@ const  routes=[
 					component: dataview3,
 					meta:{
 						title: '数据可视化',
-						index: 4,
+						index: 3,
+                        key: 6,
 						requireAuth: true,
 						keep_alive: false,
 					},
@@ -121,7 +127,8 @@ const  routes=[
 			component: facepath,
 			meta:{
 				title: '人脸检索-在线',
-				index: 3,
+				index: 4,
+                key: 7,
 				requireAuth: true,
 				keep_alive: false,
 			},
@@ -132,7 +139,8 @@ const  routes=[
 			component: facepath_offline,
 			meta:{
 				title: '人脸检索-离线',
-				index: 3,
+				index: 4,
+                key: 8,
 				requireAuth: true,
 				keep_alive: false,
 			},
@@ -143,7 +151,8 @@ const  routes=[
 			component: realtimem,
 			meta:{
 				title: '实时监控',
-				index: 3,
+				index: 5,
+                key: 9,
 				requireAuth: true,
 				keep_alive: true,
 			},
@@ -154,7 +163,8 @@ const  routes=[
 			component: historyface,
 			meta:{
 				title: '历史人脸',
-				index: 3,
+				index: 6,
+                key: 10,
 				requireAuth: true,
 				keep_alive: false,
 			},
@@ -166,6 +176,7 @@ const  routes=[
 				meta:{
 					title: '历史人脸-历史报警',
 					index: 4,
+                    key: 11,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -176,6 +187,7 @@ const  routes=[
 				meta:{
 					title: '历史人脸-历史抓拍',
 					index: 5,
+                    key: 12,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -187,7 +199,8 @@ const  routes=[
 			component: mmanage,
 			meta:{
 				title: '布控管理',
-				index: 3,
+				index: 7,
+                key: 13,
 				requireAuth: true,
 				keep_alive: false,
 			},
@@ -198,7 +211,8 @@ const  routes=[
 				component: mmanage1,
 				meta:{
 					title: '布控管理-底库配置',
-					index: 4,
+					index: 7,
+                    key: 14,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -208,7 +222,8 @@ const  routes=[
 				component: mmanage2,
 				meta:{
 					title: '布控管理-底库人员配置',
-					index: 4,
+					index: 7,
+                    key: 15,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -218,7 +233,8 @@ const  routes=[
 				component: mmanage3,
 				meta:{
 					title: '布控管理-设备组配置',
-					index: 4,
+					index: 7,
+                    key: 16,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -228,7 +244,8 @@ const  routes=[
 				component: mmanage4,
 				meta:{
 					title: '布控管理-设备配置',
-					index: 4,
+					index: 7,
+                    key: 17,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -238,7 +255,8 @@ const  routes=[
 				component: mmanage4_offline,
 				meta:{
 					title: '布控管理-设备配置',
-					index: 4,
+					index: 7,
+                    key: 18,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -250,7 +268,8 @@ const  routes=[
 			component: systemm,
 			meta:{
 				title: 'systemm',
-				index: 3,
+				index: 8,
+                key: 19,
 				requireAuth: true,
 				keep_alive: true,
 			},
@@ -261,7 +280,8 @@ const  routes=[
 				component: systemm1,
 				meta:{
 					title: '系统管理-用户列表',
-					index: 4,
+					index: 8,
+                    key: 20,
 					requireAuth: true,
 					keep_alive: false,
 				},
@@ -271,7 +291,8 @@ const  routes=[
 				component: systemm2,
 				meta:{
 					title: '系统管理-操作记录',
-					index: 4,
+					index: 8,
+                    key: 21,
 					requireAuth: true,
 					keep_alive: false,
 				},

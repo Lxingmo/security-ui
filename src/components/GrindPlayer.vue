@@ -87,7 +87,7 @@
                 console.log(err)
                 return
               }
-              console.log(this.playerId,"   ",this.player.getBufferLength())
+              // console.log(this.playerId,"   ",this.player.getBufferLength())
 
               // 初始化 5次 不成功则报错
               if( this.player.getBufferLength() === 0 ){
@@ -134,7 +134,14 @@
               }
             },1000)
           })
+        }else{
+            this.clear_timer()
         }
+      },
+      clear_timer:function(){
+          if( this.time_get_status ){
+              clearInterval(this.time_get_status)
+          }
       },
       myclick:function(){
         if( this.clicktime_now === "" ){
@@ -185,12 +192,6 @@
         // })
       })
     },
-    // beforeRouteLeave(to, from, next){
-    //   if( this.time_get_status ){
-    //     clearInterval(this.time_get_status)
-    //   }
-    //   next()
-    // }
   }
 </script>
 

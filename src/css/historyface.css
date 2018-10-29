@@ -2119,7 +2119,7 @@ to {height: 373px;opacity: 1;}
 }
 .index_snap{
 	text-align: center;
-	width: 15%;
+	width: 18%;
 	/*width:380px;*/
 	height: 66px;
 	margin-top: -16px;
@@ -2127,7 +2127,7 @@ to {height: 373px;opacity: 1;}
     overflow: hidden;
 }
 .index_snap1{
-	width: 29%;
+	width: 27%;
 	/*margin-right: 180px;*/
 }
 .index_snap span{
@@ -2159,9 +2159,10 @@ to {height: 373px;opacity: 1;}
 	margin-bottom:40px;
 }
 .chart{
-	width: 100%;
-	height: calc(100% - 130px);
-	position: relative;
+	width: 94%;
+	height: calc(100% - 420px);
+	/*position: relative;*/
+    position: absolute;
 }
 .index_navbox{
 	position: relative;

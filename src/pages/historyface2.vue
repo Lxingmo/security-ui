@@ -49,13 +49,14 @@
 						</table>
 					</div>
 					<div class="table_thbox2" ref="table_f">
-						<table id="tabledata" ref="table_c">
+                        <my-loading v-if="is_tabledata_loading"></my-loading>
+						<table id="tabledata" ref="table_c" v-else>
 							<tr class="tr" v-for="item in tabledata">
 								<td class="td td4">
 									<input class="checkbox_box" type="checkbox" :checked="item.ischecked" v-model="item.ischecked" @click="click_to_checkedone(item.uuid)"/>
 								</td>
 								<td class="td td8">
-									<img class="td_img" :src="item.snapshotUrl" @click="show_pic(item.wholePhoto)" title="点击显示原图" />
+									<img class="td_img" :src="item.snapshotUrl" @click="show_pic(item.wholePhoto,item.bbox)" title="点击显示原图" />
 								</td>
 								<td class="td td7">
 										{{item.gender}}
@@ -104,18 +105,23 @@
 		<!--遮罩层-->
 		<div class="mack_box" v-show="is_show_pic" @click="is_show_pic = false"></div>
 		<div class="t_graphBox" v-show="is_show_pic" @click="is_show_pic = false">
-			<div class="t_graph" >
-				<div class="graph_table">
-					<div class="graph_cell">
-						<img style="max-width:800px; max-height:800px;" :src="total_pic" />
-					</div>
-				</div>
-			</div>
+			<!--<div class="t_graph" >-->
+				<!--<div class="graph_table">-->
+					<!--<div class="graph_cell">-->
+						<!--<img style="max-width:800px; max-height:800px;" :src="total_pic" />-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+            <img-draw :imgsrc="total_pic"
+                      :detections="detections"
+                      :flag="is_show_pic">
+            </img-draw>
 		</div>
 	</div>
 </template>
 
-<script>	
+<script>
+
 	//js
 	export default {
 		data(){
@@ -181,9 +187,13 @@
 				// 原图
 				is_show_pic: false,
 				total_pic: "",
+                detections: [],
 
 				// 滚动条
 				tabledata_style: "width:100%",
+
+                // 列表数据是否加载中
+                is_tabledata_loading: false,
 			}//返回数据最外围
 		}, // data end
 		methods: {
@@ -375,6 +385,7 @@
 
                 params.append("pageNum",this.init_data.pageNum)
                 params.append("pageSize",this.init_data.pageSize)
+                this.is_tabledata_loading = true
                 this.$ajax.post("/history/getSnapshotList",params).then((res) => {
                     if( res.data.status === 0){
             			this.tabledata = res.data.data.list
@@ -394,7 +405,9 @@
                     }else{
                         this.mes_handling(res.data.status,res.data.msg)
                     }
+                    this.is_tabledata_loading = false
                 }).catch((error) => {
+                    this.is_tabledata_loading = false
                 	console.log(error)
                 	this.error_info('网络连接出错')
                     return ;
@@ -450,7 +463,14 @@
 			},
 
 			// 显示全图
-            show_pic:function(imgUrl){
+            show_pic:function(imgUrl,bbox){
+                if( bbox ){
+                    let detection = bbox.split("[[")[1].split("]]")[0].split(",")
+                    this.detections = new Array(detection)
+                }else{
+                    this.detections = [[]]
+                }
+
                 if( imgUrl ){
                     this.total_pic = imgUrl
                     this.is_show_pic = true

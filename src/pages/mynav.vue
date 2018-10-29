@@ -46,6 +46,7 @@
 
 				// 地图模式
 				map_model: "在线",
+
 			}
 		},
 		created:function(){

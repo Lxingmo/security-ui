@@ -21,7 +21,7 @@
 		},
 		watch:{
 			$route(to,from){
-				this.transitionName = 'slide-left';
+				this.transitionName = 'slide-left-children';
 			}
 		}
 	}
@@ -33,35 +33,35 @@
     height: 100%
   }
 
-  /*界面切换样式*/
-  .slide-right-enter-active,
-  .slide-right-leave-active,
-  .slide-left-enter-active{
-    will-change: transform;
-    transition: all 1000ms ease;
-    position: absolute;
-  }
-  .slide-left-leave-active {
-    will-change: transform;
-    transition: all 1000ms ease;
-    position: absolute;
-  }
-  .slide-right-enter {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-  .slide-right-leave-active {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-  .slide-left-enter {
-    opacity: 0;
-    /*-webkit-transform: translate3d(100%,0, 0);*/
-    transform: translate3d(100%, 0, 0);
-  }
-  .slide-left-leave-active {
-    opacity: 0;
-    /*-webkit-transform: translate3d(-100%,0, 0);*/
-    transform: translate3d(-100%, 0, 0);
-  }
+  /*!*界面切换样式*!*/
+  /*.slide-right-enter-active,*/
+  /*.slide-right-leave-active,*/
+  /*.slide-left-enter-active{*/
+    /*will-change: transform;*/
+    /*transition: all 1000ms ease;*/
+    /*position: absolute;*/
+  /*}*/
+  /*.slide-left-leave-active {*/
+    /*will-change: transform;*/
+    /*transition: all 1000ms ease;*/
+    /*position: absolute;*/
+  /*}*/
+  /*.slide-right-enter {*/
+    /*opacity: 0;*/
+    /*transform: translate3d(-100%, 0, 0);*/
+  /*}*/
+  /*.slide-right-leave-active {*/
+    /*opacity: 0;*/
+    /*transform: translate3d(100%, 0, 0);*/
+  /*}*/
+  /*.slide-left-enter {*/
+    /*opacity: 0;*/
+    /*!*-webkit-transform: translate3d(100%,0, 0);*!*/
+    /*transform: translate3d(100%, 0, 0);*/
+  /*}*/
+  /*.slide-left-leave-active {*/
+    /*opacity: 0;*/
+    /*!*-webkit-transform: translate3d(-100%,0, 0);*!*/
+    /*transform: translate3d(-100%, 0, 0);*/
+  /*}*/
 </style>

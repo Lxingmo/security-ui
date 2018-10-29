@@ -240,9 +240,10 @@
     @import "../../css/historyface.css";
     
     .view_box2{
-        position: relative;
+        /*position: relative;*/
         width: 100%;
         height: 100%;
+        position: absolute;
     }
     .item{
         padding: 0px;

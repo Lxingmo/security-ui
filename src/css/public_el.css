@@ -166,3 +166,95 @@
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
 }
+
+/*界面切换样式*/
+.slide-left-enter-active,
+.slide-left-leave-active {
+    will-change: transform;
+    transition: all 1s;
+    position: absolute;
+}
+.slide-left-leave-to
+{
+    opacity: 0;
+    /*transform: translateX(-100%);*/
+    /*transform: translate3d(-100%, 0, 0);*/
+    transform: scale(0);
+}
+.slide-left-enter{
+    opacity: 0;
+    /*transform: translateX(100%);*/
+    /*transform: translate3d(100%, 0, 0);*/
+    transform: scale(0);
+}
+.slide-left-children-enter-active,
+.slide-left-children-leave-active {
+    will-change: transform;
+    transition: all 1.5s;
+    position: absolute ;
+}
+.slide-left-children-leave-to
+{
+    opacity: 0;
+    /*transform: translateX(-100%);*/
+    transform: translate3d(-100%, 0, 0);
+    /*transform: scale(0);*/
+}
+.slide-left-children-enter{
+    opacity: 0;
+    /*transform: translateX(100%);*/
+    transform: translate3d(100%, 0, 0);
+    /*transform: scale(0);*/
+}
+/*.slide-left-enter-active{*/
+    /*animation: page_enter 1s;*/
+    /*position: absolute;*/
+/*}*/
+/*.slide-left-leave-active{*/
+    /*animation: page_leave 1s;*/
+    /*position: absolute;*/
+/*}*/
+/*@keyframes page_leave {*/
+    /*0% {*/
+        /*!*transform: translate3d(0%, 0, 0);*!*/
+        /*transform: scale(1);*/
+    /*}*/
+    /*25% {*/
+        /*!*transform: translate3d(-25%, 0, 0);*!*/
+        /*transform: scale(0.75);*/
+    /*}*/
+    /*50% {*/
+        /*!*transform: translate3d(-50%, 0, 0);*!*/
+        /*transform: scale(0.5);*/
+    /*}*/
+    /*75% {*/
+        /*!*transform: translate3d(-75%, 0, 0);*!*/
+        /*transform: scale(0.25);*/
+    /*}*/
+    /*100% {*/
+        /*!*transform: translate3d(-100%, 0, 0);*!*/
+        /*transform: scale(0);*/
+    /*}*/
+/*}*/
+/*@keyframes page_enter {*/
+    /*0% {*/
+        /*!*transform: translate3d(100%, 0, 0);*!*/
+        /*transform: scale(2);*/
+    /*}*/
+    /*25% {*/
+        /*!*transform: translate3d(75%, 0, 0);*!*/
+        /*transform: scale(1.75);*/
+    /*}*/
+    /*50% {*/
+        /*!*transform: translate3d(50%, 0, 0);*!*/
+        /*transform: scale(1.5);*/
+    /*}*/
+    /*75% {*/
+        /*!*transform: translate3d(25%, 0, 0);*!*/
+        /*transform: scale(1.25);*/
+    /*}*/
+    /*100% {*/
+        /*!*transform: translate3d(0%, 0, 0);*!*/
+        /*transform: scale(1);*/
+    /*}*/
+/*}*/
