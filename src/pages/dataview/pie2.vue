@@ -129,6 +129,8 @@
 				    calculable : false,
 				    backgroundColor: 'rgba(0,0,0,0.4)', // 修改背景颜色
 				    color: this.color, // 线条颜色
+                    startAngle: 0, //起始角度
+                    minAngle: 20, // 最小角度
 				    series : [
 				        {
 				            name:'性别',

@@ -67,7 +67,7 @@
                                 <div class="results_conter2">相似度：{{ item.confidence }}</div>
                             </div>
                             <div class="re_conterbox2">
-                                <img :src="item.snapshotUrl" @click="show_pic(item.wholePhoto)" title="点击显示原图" />
+                                <img :src="item.snapshotUrl" @click="show_pic(item.wholePhoto,item.bbox)" title="点击显示原图" />
                             </div>
                         </div>
                     </div>
@@ -77,13 +77,10 @@
         <!--遮罩层-->
         <div class="mack_box" v-show="is_show_pic" @click="is_show_pic = false"></div>
         <div class="t_graphBox" v-show="is_show_pic" @click="is_show_pic = false">
-            <div class="t_graph" >
-                <div class="graph_table">
-                    <div class="graph_cell">
-                        <img style="max-width:800px; max-height:800px;margin:0 auto;" :src="total_pic" />
-                    </div>
-                </div>
-            </div>
+            <img-draw :imgsrc="total_pic"
+                      :detections="detections"
+                      :flag="is_show_pic">
+            </img-draw>
         </div>
     </div>
 </template>
@@ -185,11 +182,18 @@
                 // 原图
                 is_show_pic: false,
                 total_pic: "",
+                detections: [],
             }
         },
         methods:{
             // 显示全图
-            show_pic:function(imgUrl){
+            show_pic:function(imgUrl,bbox){
+                if( bbox ){
+                    let detection = bbox.split("[[")[1].split("]]")[0].split(",")
+                    this.detections = new Array(detection)
+                }else{
+                    this.detections = [[]]
+                }
                 if( imgUrl ){
                     this.total_pic = imgUrl
                     this.is_show_pic = true

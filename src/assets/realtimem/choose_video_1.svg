@@ -1,0 +1,20 @@
+<svg id="选择设备_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.854 28.668">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: rgba(0,46,115,0.7);
+        opacity: 0.8;
+      }
+
+      .cls-2 {
+        fill: rgba(255,255,255,0.6);
+        font-size: 13px;
+        font-family: MicrosoftYaHei, Microsoft YaHei;
+      }
+    </style>
+  </defs>
+  <path id="路径_116" data-name="路径 116" class="cls-1" d="M-13826-12837l11.031,25.463h65.348l10.184-25.463Z" transform="translate(13830.292 12837.001)"/>
+  <text id="选择设备" class="cls-2" transform="translate(21.979 17)"><tspan x="0" y="0">选择设备</tspan></text>
+  <path id="路径_119" data-name="路径 119" class="cls-1" d="M-13751-12835h2.605l11.539,25.678h5.213l-1.113,1.688h-5.213Z" transform="translate(13751 12836.303)"/>
+  <path id="路径_120" data-name="路径 120" class="cls-1" d="M.169,0H57.506L56.78,1.246H-.557Z" transform="translate(23.287 27.365)"/>
+</svg>

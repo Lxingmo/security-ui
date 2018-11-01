@@ -21,20 +21,15 @@
                                     <div class="video_text">ANYTEC</div>
                                 </div>
                                 <div :class="{'choose_box3':true,'choose_box_active':isactive[0]}">
-                                    <div class="choose_box"
-                                        @click="change_video(0)"
-                                        title="点击选择设备显示"
-                                        v-if="false"
-                                        @mouseup.stop>
-                                            选择设备
+                                    <div class="close_video_icon"
+                                         @click="close_video(0)"
+                                         title="点击关闭显示"
+                                         @mouseup.stop>
                                     </div>
                                     <div class="refresh_icon"
-                                        @mouseover="refresh_icon = refresh_icon2"
-                                        @mouseout="refresh_icon = refresh_icon1"
-                                        @click="repaly_video(0)"
-                                        title="点击刷新显示"
-                                        @mouseup.stop>
-                                            <img :src="refresh_icon" />
+                                         @click="repaly_video(0)"
+                                         title="点击刷新显示"
+                                         @mouseup.stop>
                                     </div>
                                 </div>
                                 <div @mouseup="myclick(0)" style="width: 100%;height: 100%">
@@ -66,21 +61,23 @@
                                      title="双击缩放">
                                     <div class="video_text">ANYTEC</div>
                                 </div>
-                                <div :class="{'choose_box3':true,'choose_box_active':isactive[1]}">
+                                <!--<div :class="{'choose_box3':true,'choose_box_active':isactive[1]}">-->
+                                <div :class="{'choose_box3':true,'choose_box_active':true}">
                                     <div class="choose_box"
                                          @click="change_video(1)"
                                          title="点击选择设备显示"
                                          v-if="true"
                                          @mouseup.stop>
-                                        选择设备
+                                    </div>
+                                    <div class="close_video_icon"
+                                         @click="close_video(1)"
+                                         title="点击关闭显示"
+                                         @mouseup.stop>
                                     </div>
                                     <div class="refresh_icon"
-                                         @mouseover="refresh_icon = refresh_icon2"
-                                         @mouseout="refresh_icon = refresh_icon1"
                                          @click="repaly_video(1)"
                                          title="点击刷新显示"
                                          @mouseup.stop>
-                                        <img :src="refresh_icon" />
                                     </div>
                                 </div>
                                 <div @mouseup="myclick(1)" style="width: 100%;height: 100%">
@@ -108,15 +105,16 @@
                                          title="点击选择设备显示"
                                          v-if="true"
                                          @mouseup.stop>
-                                        选择设备
+                                    </div>
+                                    <div class="close_video_icon"
+                                         @click="close_video(2)"
+                                         title="点击关闭显示"
+                                         @mouseup.stop>
                                     </div>
                                     <div class="refresh_icon"
-                                         @mouseover="refresh_icon = refresh_icon2"
-                                         @mouseout="refresh_icon = refresh_icon1"
                                          @click="repaly_video(2)"
                                          title="点击刷新显示"
                                          @mouseup.stop>
-                                        <img :src="refresh_icon" />
                                     </div>
                                 </div>
                                 <div @mouseup="myclick(2)" style="width: 100%;height: 100%">
@@ -144,15 +142,16 @@
                                          title="点击选择设备显示"
                                          v-if="true"
                                          @mouseup.stop>
-                                        选择设备
+                                    </div>
+                                    <div class="close_video_icon"
+                                         @click="close_video(3)"
+                                         title="点击关闭显示"
+                                         @mouseup.stop>
                                     </div>
                                     <div class="refresh_icon"
-                                         @mouseover="refresh_icon = refresh_icon2"
-                                         @mouseout="refresh_icon = refresh_icon1"
                                          @click="repaly_video(3)"
                                          title="点击刷新显示"
                                          @mouseup.stop>
-                                        <img :src="refresh_icon" />
                                     </div>
                                 </div>
                                 <div @mouseup="myclick(3)" style="width: 100%;height: 100%">
@@ -463,6 +462,7 @@
                 stompClient: null,
                 myID: this.guid(),
                 subscribers: [],
+                error_show_flag: true,
 
                 // 初始化请求
                 default_data_alarm: null,
@@ -760,12 +760,15 @@
                 }
 
                 for( let i = 0; i < 4; i ++ ){
-                    if( i != (this.active_box_num-1) && this.video_srcs[i].sdkId === sdkId ){
-                        let temp_video_src = JSON.parse(JSON.stringify(this.video_srcs[i]))
-                        temp_video_src.big_video_flag = this.video_srcs[this.active_box_num-1].big_video_flag
-                        this.video_srcs.splice(this.active_box_num-1,1,temp_video_src)
-                        this.subscribe_list[this.active_box_num-1] = this.subscribe_list[i]
-                        this.playvideo(this.video_srcs[this.active_box_num-1].playAddress,this.active_box_num,this.video_srcs[this.active_box_num-1].sdkId)
+                    if( this.video_srcs[i].sdkId === sdkId ){
+                        // this.open_flag = false
+                        this.error_info(name+"设备已在窗口"+(i+1)+"中播放")
+
+                        // let temp_video_src = JSON.parse(JSON.stringify(this.video_srcs[i]))
+                        // temp_video_src.big_video_flag = this.video_srcs[this.active_box_num-1].big_video_flag
+                        // this.video_srcs.splice(this.active_box_num-1,1,temp_video_src)
+                        // this.subscribe_list[this.active_box_num-1] = this.subscribe_list[i]
+                        // this.playvideo(this.video_srcs[this.active_box_num-1].playAddress,this.active_box_num,this.video_srcs[this.active_box_num-1].sdkId)
                         return ;
                     }
                 }
@@ -777,8 +780,10 @@
                         // console.log(this.myID)
                         // console.log(jsondata.data.uiUUID.split("_")[0])
                         if( jsonData.msg === "stream" && jsonData.data.uiUUID.split("_")[0] === this.myID ){
+                            this.open_flag = false
                             let play_box_id = jsonData.data.uiUUID.split("_").pop()
                             this.playvideo(jsonData.data.playAddress,play_box_id,sdkId,name)
+                            this.success_info(name+"打开成功")
                         }else if(jsonData.msg === "normal"){
                             this.catch_oneday += 1
                             let temp_data = {}
@@ -802,6 +807,7 @@
                             }else if( jsonData.data.gender === "male" ){
                                 temp_data.gender = "男"
                             }
+                            temp_data.bbox = jsonData.data.bbox
                             // this.show_face_list.push(JSON.parse(JSON.stringify(temp_data)))
                             // console.log("temp_data")
                             // console.log(temp_data)
@@ -842,6 +848,7 @@
                     this.show_data[0].cameraName = temp_data.cameraName
                     this.show_data[0].faceSdkId = temp_data.faceSdkId
                     this.show_data[0].wholePhoto = temp_data.wholePhoto
+                    this.show_data[0].bbox = temp_data.bbox
                     this.show_data[0].translatetime = this.rolling_time
                     // temp_data.translatetime = 0.5
                     // temp_data.move_pix = this.show_data[0].move_pix
@@ -855,6 +862,7 @@
                     this.show_data[this.end_id+1].cameraName = temp_data.cameraName
                     this.show_data[this.end_id+1].faceSdkId = temp_data.faceSdkId
                     this.show_data[this.end_id+1].wholePhoto = temp_data.wholePhoto
+                    this.show_data[this.end_id+1].bbox = temp_data.bbox
                     this.show_data[this.end_id+1].translatetime = this.rolling_time
                     // temp_data.translatetime = 0.5
                     // temp_data.move_pix = this.show_data[this.end_id+1].move_pix
@@ -935,6 +943,7 @@
                 // console.log(this.video_srcs)
 
                 this.$refs["player"+player_num].play(this.video_srcs[player_num-1].playAddress)
+                this.info
                 // this.flashvars.src = video_url
                 // swfobject.embedSWF("/static/grindPlayer/GrindPlayer.swf", "player"+player_num, "100%", "100%", "10.2", null, this.flashvars, this.params, this.attrs);
             },
@@ -947,6 +956,28 @@
 
                 // this.flashvars.src = this.video_srcs[num-1].playAddress
                 // swfobject.embedSWF("/static/grindPlayer/GrindPlayer.swf", "player"+num, "100%", "100%", "10.2", null, this.flashvars, this.params, this.attrs);
+            },
+            close_video:function(num){
+                let flag = true
+                for( let i = 0; i < this.video_srcs.length; i++){
+                    if( i != num && this.video_srcs[num].sdkId === this.video_srcs[i].sdkId && this.video_srcs[num].sdkId != "" ){
+                        flag = false
+                    }
+                }
+                if( flag ){
+                    if( this.subscribe_list[num] ){
+                        this.subscribe_list[num].unsubscribe()
+                    }
+                }
+
+                if( num === 0 ){
+                    this.$store.state.realtime_data.sdkId = ""
+                }
+                this.subscribe_list[num] = null
+                this.video_srcs[num].playAddress = ""
+                this.video_srcs[num].name = ""
+                this.video_srcs[num].sdkId = ""
+                this.$refs["player"+(num+1)].play("")
             },
             // 生成唯一ID
             S4:function(){
@@ -1013,11 +1044,17 @@
                     }
                 },(message) => {
                     // console.log(this.stompClient)
-                    if( this.$route.path === "/realtimem" ){
+                    if( this.$route.path === "/realtimem" && this.error_show_flag ){
+                        this.error_show_flag = false
+                        for( let i = 0; i < 4; i++ ){
+                            this.close_video(i)
+                        }
+
                         this.error_info("连接已断开，正在尝试重新连接，请检查网络是否畅通")
                         console.log(message);
                         setTimeout(() => {
                             this.initSocket()
+                            this.error_show_flag = true
                         },3000);
                     }
                 });
@@ -1034,6 +1071,14 @@
             warning_info:function(mes){
                 this.$message({
                     type: 'warning',
+                    message: mes,
+                    showClose: true,
+                    center: true
+                })
+            },
+            success_info:function(mes){
+                this.$message({
+                    type: 'success',
                     message: mes,
                     showClose: true,
                     center: true
@@ -1255,7 +1300,7 @@
             },
         },
         mounted:function(){
-            // this.initSocket()
+            this.initSocket()
 
             setInterval(() => {
                 if( this.rolling_picture_data.length > 0 ){
@@ -1288,10 +1333,12 @@
             },
             '$store.state.realtime_data.sdkId':function(newVal,old){
                 // console.log(this.$store.state.realtime_data.sdkId)
-                this.active_box_num = 1
-                this.$store.state.is_search_data = false
-                // console.log(this.$store.state.realtime_data.sdkId)
-                this.choose_this_url(this.$store.state.realtime_data.sdkId,this.$store.state.realtime_data.name)
+                if( newVal != "" ){
+                    this.active_box_num = 1
+                    this.$store.state.is_search_data = false
+                    // console.log(this.$store.state.realtime_data.sdkId)
+                    this.choose_this_url(this.$store.state.realtime_data.sdkId,this.$store.state.realtime_data.name)
+                }
             },
             '$store.state.realtime_data.groupNames':function(newVal,old){
                 this.groupNames = this.$store.state.realtime_data.groupNames
@@ -1428,7 +1475,7 @@
         top: 0px;
         /*width: 150px;*/
         /*height: 40px;*/
-        width: 300px;
+        width: 360px;
         height: 80px;
         transform: scale(0);
     }

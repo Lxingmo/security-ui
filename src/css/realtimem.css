@@ -77,20 +77,37 @@
     background-color: rgba(0,0,0,0.5);
 }
 .refresh_icon{
-	width: 50px;
-	height: 50px;
+	width: 70px;
+	height: 70px;
 	float: right;
 /*	position: absolute;
 	top: -35px;
 	right: 10px;*/
-	margin-top: 10px;
 	cursor: pointer;
+    margin-top: 15px;
+    background: url("../assets/realtimem/replay_video.svg") no-repeat;
+    background-size: auto;
+}
+.refresh_icon:hover{
+    background: url("../assets/realtimem/replay_video_1.svg") no-repeat;
+}
+.close_video_icon{
+    width: 70px;
+    height: 70px;
+    float: right;
+    cursor: pointer;
+    margin-top: 15px;
+    background: url("../assets/realtimem/close_video.svg") no-repeat;
+    background-size: auto;
+}
+.close_video_icon:hover{
+    background: url("../assets/realtimem/close_video_1.svg") no-repeat;
 }
 .refresh_icon img{
 	width: 100%;
 }
 .choose_box{
-	background: url(../assets/realtimem/choose_bg.png) no-repeat;
+	background: url(../assets/realtimem/choose_video.svg) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 /*	position: absolute;
@@ -105,6 +122,9 @@
 	font-family: "微软雅黑";
 	cursor: pointer;
 	z-index: 8;
+}
+.choose_box:hover{
+    background: url(../assets/realtimem/choose_video_1.svg) no-repeat;
 }
 
 .choose_box1{
